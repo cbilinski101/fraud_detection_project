@@ -1,4 +1,3 @@
-
 import streamlit as st
 import pandas as pd
 import joblib
@@ -17,15 +16,14 @@ st.title("🛡️ Fraud Detection Demo Dashboard")
 
 st.write(
 """
-This dashboard demonstrates how a machine learning model can help detect
-suspicious credit card transactions.
+This dashboard shows how a machine learning model can help detect suspicious credit card transactions.
 
 Enter transaction information and the model will estimate whether the
 transaction appears **normal** or **possibly fraudulent**.
 """
 )
 
-# ---- Transaction Inputs ----
+# ---------------- INPUTS ----------------
 
 st.header("Transaction Input")
 
@@ -37,7 +35,11 @@ city_pop = col2.number_input("City Population", min_value=0, value=50000)
 age = col1.slider("Customer Age", 18, 100, 35)
 hour = col2.slider("Hour of Day", 0, 23, 12)
 
-day = st.selectbox("Day of Week", list(range(7)), format_func=lambda x: ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"][x])
+day = st.selectbox(
+    "Day of Week",
+    list(range(7)),
+    format_func=lambda x: ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"][x]
+)
 
 category_options = {
     "Entertainment": "category_entertainment",
@@ -58,7 +60,7 @@ category_options = {
 
 selected_cat = st.selectbox("Transaction Category", list(category_options.keys()))
 
-# ---- Expected Model Columns ----
+# ---------------- MODEL FEATURES ----------------
 
 input_cols = [
     "amt","city_pop","age","day_of_week","hour_of_day",
@@ -68,22 +70,22 @@ input_cols = [
     "category_personal_care","category_shopping_net","category_shopping_pos","category_travel"
 ]
 
-# ---- Build Input Row ----
-
+# create row with all zeros
 input_data = {col: 0 for col in input_cols}
 
+# fill numeric values
 input_data["amt"] = amount
 input_data["city_pop"] = city_pop
 input_data["age"] = age
 input_data["day_of_week"] = day
 input_data["hour_of_day"] = hour
 
-# set chosen category
+# set selected category
 input_data[category_options[selected_cat]] = 1
 
 df = pd.DataFrame([input_data])
 
-# ---- Prediction ----
+# ---------------- PREDICTION ----------------
 
 if st.button("Predict Fraud Risk"):
 
@@ -101,7 +103,7 @@ if st.button("Predict Fraud Risk"):
         st.write(f"Fraud probability: **{proba:.2%}**")
 
     except Exception as e:
-        st.error("Prediction failed. Model feature mismatch.")
+        st.error("Prediction failed.")
         st.write(e)
 
 st.markdown("---")
