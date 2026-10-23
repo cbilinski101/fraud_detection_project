@@ -16,9 +16,9 @@ The project includes:
 
 # 🚀 Live Dashboard
 
-After deployment your app will be available at:
+**Earlier demo — retained as a project reference.**
 
-[https://your-render-app.onrender.com](https://fraud-detection-project-d04b.onrender.com)
+The maintained application is now [Fraud Risk Intelligence Dashboard](https://fraud-risk-dashboard.onrender.com/) in [cbilinski101/fraud-api](https://github.com/cbilinski101/fraud-api). Use that version for testing and sharing. This repository preserves the simpler demo and model-comparison work.
 
 ---
 
@@ -119,3 +119,7 @@ streamlit run fraud_app.py
 
 Christine Bilinski  
 GitHub: https://github.com/cbilinski101
+
+## Dependency maintenance
+
+Direct application dependencies are pinned to versions from the verified October 23, 2026 deployment. Certifi retains a security minimum of `2026.10.19` so builds can receive newer certificate bundles. Transitive dependencies are not fully locked. After dependency changes, verify deployment health and test predictions using fictional data.
